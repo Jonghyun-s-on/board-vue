@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BoardListView from '../views/BoardListView.vue'
-import BoardViewAView from '../views/BoardViewView.vue'
-import BoardWriteAView from '../views/BoardWriteAView.vue'
+import BoardViewView from '../views/BoardViewView.vue'
+import BoardWriteView from '../views/BoardWriteView.vue'
 
 const routes = [
   {
@@ -12,12 +12,13 @@ const routes = [
   {
     path: '/view',
     name: 'boardView',
-    component: BoardViewAView
+    component: BoardViewView,
+    // props: true // set value in props
   },
   {
     path: '/write',
     name: 'boardWrite',
-    component: BoardWriteAView
+    component: BoardWriteView
   }
 ]
 
