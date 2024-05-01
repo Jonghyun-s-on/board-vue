@@ -23,12 +23,7 @@ const board = ref(new Object())
 // }
 const searchBoard = async () => {
   let selectedBoard = store.getters.getBoard(route.query.number)
-  if (Object.keys(selectedBoard).length > 0) {
-    board.value = selectedBoard
-  } else {
-    alert('not exists!')
-    moveBack()
-  }
+  board.value = selectedBoard
 }
 const moveToWrite = () => {
   router.push({
@@ -52,6 +47,10 @@ const moveBack = () => {
     <label class="col-2 col-form-label">Created Date</label>
     <div class="col-2">
       <input type="text" class="form-control-plaintext" v-model="board.createdDate" readonly>
+    </div>
+    <label class="col-2 col-form-label">Modified Date</label>
+    <div class="col-2">
+      <input type="text" class="form-control-plaintext" v-model="board.modifiedDate" readonly>
     </div>
   </div>
   <div class="mb-3">
