@@ -32,3 +32,9 @@ const moveToView = (num) => {
     </tbody>
   </table>
 </template>
+
+<style scoped>
+tbody > tr {
+  cursor: pointer
+}
+</style>
