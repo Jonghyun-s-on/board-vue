@@ -13,12 +13,12 @@ const routes = [
     path: '/view',
     name: 'boardView',
     component: BoardViewView,
-    // props: true // set value in props
   },
   {
-    path: '/write',
+    path: '/write/:number?',
     name: 'boardWrite',
-    component: BoardWriteView
+    component: BoardWriteView,
+    props: true // set value in props (default: false)
   }
 ]
 
