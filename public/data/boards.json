@@ -1,16 +1,16 @@
 [
   {
     "number": "1",
-    "title": "안녕",
-    "content": "반갑습니다",
-    "author": "종현",
-    "createdDate": "2024-01-01 10:00:00"
+    "title": "첫 번째 게시글입니다.",
+    "content": "반갑습니다!",
+    "author": "손종현",
+    "createdDate": "2024-01-01 01:00:00"
   },
   {
     "number": "2",
-    "title": "안녕",
-    "content": "반갑습니다",
-    "author": "종현",
-    "createdDate": "2024-01-01 10:00:00"
+    "title": "안녕하세요.",
+    "content": "배고프다...",
+    "author": "홍길동",
+    "createdDate": "2024-01-01 02:00:00"
   }
 ]
