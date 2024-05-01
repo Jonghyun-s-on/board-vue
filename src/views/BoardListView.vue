@@ -13,7 +13,7 @@ const boardList = ref(new Array())
 const titleKeyword = ref(new String())
 const searchBoardList = async () => {
   // boardList.value = await fetchJsonFile('/data/boards.json')
-  boardList.value = store.getters.getBoards
+  boardList.value = store.getters.getBoards.filter(b => b.title.includes(titleKeyword.value))
 }
 const moveToWrite = () => {
   router.push({
