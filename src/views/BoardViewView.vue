@@ -1,34 +1,44 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { fetchJsonFile } from '@/util/JsonFileUtil'
+import { useStore } from 'vuex'
+// import { fetchJsonFile } from '@/util/JsonFileUtil'
 onMounted(() => {
   searchBoard()
 })
-const route = useRoute()
 const router = useRouter()
+const route = useRoute()
+const store = useStore()
 const board = ref(new Object())
-const modify = ref(false)
-let originBoard = new Object()
+// let originBoard = new Object()
 // const props = defineProps(['number']) // be active when 'props: true' on router/index.js
+// const searchBoard = async () => {
+//   const boardList = await fetchJsonFile('/data/boards.json')
+//   boardList.forEach(b => {
+//     if (b.number == route.query.number) {
+//       originBoard = Object.assign(new Object(), b) // deep copy
+//       board.value = b
+//     }
+//   })
+// }
 const searchBoard = async () => {
-  const boardList = await fetchJsonFile('/data/boards.json')
-  boardList.forEach(b => {
-    if (b.number == route.query.number) {
-      originBoard = Object.assign(new Object(), b)//deep copy
-      board.value = b
-    }
+  let selectedBoard = store.getters.getBoard(route.query.number)
+  if (Object.keys(selectedBoard).length > 0) {
+    board.value = selectedBoard
+  } else {
+    alert('not exists!')
+    moveBack()
+  }
+}
+const moveToWrite = () => {
+  router.push({
+    name: 'boardWrite',
+    params: { number: route.query.number }
   })
 }
-const saveBoard = () => {
-  alert('saved successfully!')
+const moveBack = () => {
   router.go(-1)
 }
-const resetBoard = () => {
-  board.value = Object.assign(new Object(), originBoard)//deep copy
-  modify.value = false
-}
-
 </script>
 
 <template>
@@ -46,24 +56,16 @@ const resetBoard = () => {
   </div>
   <div class="mb-3">
     <label class="form-label">Title</label>
-    <input type="text" class="form-control" v-model="board.title" :readonly="!modify">
+    <input type="text" class="form-control" v-model="board.title" readonly>
   </div>
   <div class="mb-3">
     <label class="form-label">Content</label>
-    <textarea class="form-control" rows="3" v-model="board.content" :readonly="!modify"></textarea>
+    <textarea class="form-control" rows="3" v-model="board.content" readonly></textarea>
   </div>
   <div class="row">
-    <div v-if="!modify">
-      <button type="button" class="col-1 btn btn-primary" @click="() => { modify = !modify }">Modify</button>
-    </div>
-    <div v-else>
-      <button type="button" class="col-1 btn btn-primary mr-4" @click="saveBoard">Save</button>
-      <button type="button" class="col-1 btn btn-danger" @click="resetBoard">Cancel</button>
+    <div>
+      <button type="button" class="col-1 btn btn-primary" @click="moveToWrite">Modify</button>
+      <button type="button" class="col-1 offset-10 btn btn-danger" @click="moveBack">Back</button>
     </div>
   </div>
 </template>
-<style scoped>
-  .mr-4 {
-    margin-right: 4px;
-  }
-</style>
