@@ -10,13 +10,14 @@ const boardStore = {
         "author": "손종현",
         "password": "1234",
         "createdDate": "2024-01-01 00:00:00",
+        "modifiedDate": "2024-01-01 00:00:00",
         "active": true,
       }
     ],
   },
   mutations: {
     setBoard(state, boards) {
-      state.boards.push(boards)
+      state.boards = boards
     }
   },
   getters: {
@@ -34,22 +35,37 @@ const boardStore = {
   },
   actions: {
     insertBoard({ state, commit }, data) {
+      let newBoards = new Array()
       let boardNumber = 1
-      // let boards = new Array()
       if (state.boards.length > 0) {
         let latestBoard = state.boards[state.boards.length - 1]
         boardNumber = Number(latestBoard.number) + 1
+        newBoards = state.boards
       }
-
-      commit('setBoard', {
+      newBoards.push({
         "number": boardNumber,
         "title": data.title,
         "content": data.content,
         "author": data.author,
         "password": data.password,
         "createdDate": formatDate(new Date()),
+        "modifiedDate": formatDate(new Date()),
         "active": true,
       })
+      commit('setBoard', newBoards)
+    },
+    updateBoard({ state, commit }, data) {
+      for (let b of state.boards) {
+        if (b.number == data.number) {
+          console.log(b.number)
+          b.author = data.author
+          b.password = data.password
+          b.title = data.title
+          b.content = data.content
+          b.modifiedDate = formatDate(new Date())
+        }
+      }
+      commit('setBoard', state.boards)
     }
   }
 }

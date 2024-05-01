@@ -1,10 +1,17 @@
 <script setup>
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+// on mounted
+onMounted(() => {
+  if (props.number) {
+    setBoard() // when modification mode
+  }
+})
 
 // variables
 const { proxy } = getCurrentInstance()
+const props = defineProps(['number'])
 const router = useRouter()
 const store = useStore()
 const author = ref(new String())
@@ -34,8 +41,10 @@ const saveBoard = () => {
     proxy.$refs.contentRef.focus() // focus on content input
     return false
   }
+  let action = props.number ? 'updateBoard' : 'insertBoard'
   // store.commit('setBoard') // access an mutation in store
-  store.dispatch('insertBoard', {
+  store.dispatch(action, {
+    number: props.number,
     author: author.value,
     password: password.value,
     title: title.value,
@@ -43,6 +52,12 @@ const saveBoard = () => {
   }) // access an action
   alert('saved successfully!')
   moveBack()
+}
+const setBoard = () => {
+  let board = store.getters.getBoard(props.number)
+  author.value = board.author
+  title.value = board.title
+  content.value = board.content
 }
 const moveBack = () => {
   router.go(-1)
@@ -52,7 +67,7 @@ const moveBack = () => {
 <template>
   <div class="mb-3">
     <label class="form-label">Author</label>
-    <input type="text" class="form-control" v-model="author" ref="authorRef">
+    <input type="text" class="form-control" v-model="author" :readonly="props.number" ref="authorRef">
   </div>
   <div class="mb-3">
     <label class="form-label">Password</label>
