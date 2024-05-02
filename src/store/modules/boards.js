@@ -4,7 +4,7 @@ const boardStore = {
   state: {
     boards: [
       {
-        "number": "1",
+        "boardNumber": "1",
         "title": "첫 번째 게시글입니다.",
         "content": "안녕하세요. 이 글은 첫 번째 게시글입니다.",
         "author": "손종현",
@@ -16,7 +16,7 @@ const boardStore = {
     ],
   },
   mutations: {
-    setBoard(state, boards) {
+    setBoards(state, boards) {
       state.boards = boards
     }
   },
@@ -26,7 +26,7 @@ const boardStore = {
     },
     getBoard: (state) => (number) => {
       let board = new Object()
-      let filteredBoard = state.boards.filter(b => b.active && b.number == number)
+      let filteredBoard = state.boards.filter(b => b.active && b.boardNumber == number)
       if (filteredBoard.length > 0) {
         board = filteredBoard[0]
       }
@@ -39,11 +39,11 @@ const boardStore = {
       let boardNumber = 1
       if (state.boards.length > 0) {
         let latestBoard = state.boards[state.boards.length - 1]
-        boardNumber = Number(latestBoard.number) + 1
+        boardNumber = Number(latestBoard.boardNumber) + 1
         newBoards = state.boards
       }
       newBoards.push({
-        "number": boardNumber,
+        "boardNumber": boardNumber,
         "title": data.title,
         "content": data.content,
         "author": data.author,
@@ -52,12 +52,11 @@ const boardStore = {
         "modifiedDate": formatDate(new Date()),
         "active": true,
       })
-      commit('setBoard', newBoards)
+      commit('setBoards', newBoards)
     },
     updateBoard({ state, commit }, data) {
       for (let b of state.boards) {
-        if (b.number == data.number) {
-          console.log(b.number)
+        if (b.boardNumber == data.boardNumber) {
           b.author = data.author
           b.password = data.password
           b.title = data.title
@@ -65,7 +64,7 @@ const boardStore = {
           b.modifiedDate = formatDate(new Date())
         }
       }
-      commit('setBoard', state.boards)
+      commit('setBoards', state.boards)
     }
   }
 }

@@ -42,9 +42,9 @@ const saveBoard = () => {
     return false
   }
   let action = props.number ? 'updateBoard' : 'insertBoard'
-  // store.commit('setBoard') // access an mutation in store
+  // store.commit('setBoards') // access an mutation in store
   store.dispatch(action, {
-    number: props.number,
+    boardNumber: props.number,
     author: author.value,
     password: password.value,
     title: title.value,

@@ -23,8 +23,8 @@ const moveToView = (num) => {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="board of props.boardList" :key="board.number" @click="moveToView(board.number)">
-        <th scope="row">{{ board.number }}</th>
+      <tr v-for="board of props.boardList" :key="board.number" @click="moveToView(board.boardNumber)">
+        <th scope="row">{{ board.boardNumber }}</th>
         <td>{{ board.title }}</td>
         <td>{{ board.author }}</td>
         <td>{{ board.createdDate }}</td>
@@ -34,7 +34,7 @@ const moveToView = (num) => {
 </template>
 
 <style scoped>
-tbody > tr {
+tbody>tr {
   cursor: pointer
 }
 </style>
