@@ -93,9 +93,11 @@ const setBoard = () => {
     <textarea class="form-control" rows="3" v-model="content" ref="contentRef"></textarea>
   </div>
   <div class="row">
-    <div>
-      <button type="button" class="col-1 btn btn-primary" @click="saveBoard">Save</button>
-      <button type="button" class="col-1 offset-10 btn btn-danger" @click="moveBack">Back</button>
+    <div class="col-1">
+      <button type="button" class="w-100 btn btn-outline-primary" @click="saveBoard">Save</button>
+    </div>
+    <div class="col-1 offset-10">
+      <button type="button" class="w-100 btn btn-outline-secondary" @click="moveBack">Back</button>
     </div>
   </div>
 </template>

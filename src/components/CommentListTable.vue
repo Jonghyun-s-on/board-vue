@@ -41,11 +41,9 @@ const removeComment = (num) => {
       <div class="col-2">
         <input class="form-control" :value="comment.createdDate" readonly>
       </div>
-      <div class="col-1">
-        <div class="row">
-          <button type="button" class="btn btn-outline-danger" @click="removeComment(comment.commentNumber)"><i
-              class="bi bi-trash"></i></button>
-        </div>
+      <div class="col-1 text-right">
+        <button type="button" class="btn btn-outline-danger" @click="removeComment(comment.commentNumber)"><i
+            class="bi bi-trash"></i></button>
       </div>
     </div>
   </template>
@@ -55,3 +53,9 @@ const removeComment = (num) => {
     </div>
   </template>
 </template>
+
+<style scoped>
+.text-right {
+  text-align: right
+}
+</style>

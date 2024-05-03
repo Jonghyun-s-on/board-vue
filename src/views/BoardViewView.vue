@@ -88,7 +88,17 @@ const saveComment = (num) => {
     comment: comment.value,
     password: password.value,
   })
+  resetCommentInputValues() // reset input values
   commentList.value = searchComments(num)
+}
+
+/**
+ * reset comment input values.
+ */
+const resetCommentInputValues = () => {
+  author.value = ''
+  password.value = ''
+  comment.value = ''
 }
 
 /**
@@ -98,6 +108,15 @@ const saveComment = (num) => {
  */
 const reloadComments = (num) => {
   commentList.value = searchComments(num)
+}
+
+/**
+ * remove a selected board.
+ * 
+ * @param {number} num boardNumber
+ */
+const removeBoard = (num) => {
+  console.log(num)
 }
 </script>
 
@@ -128,9 +147,14 @@ const reloadComments = (num) => {
       <textarea class="form-control" rows="3" v-model="board.content" readonly></textarea>
     </div>
     <div class="row">
-      <div>
-        <button type="button" class="col-1 btn btn-primary" @click="moveToWrite(board.boardNumber)">Modify</button>
-        <button type="button" class="col-1 offset-10 btn btn-danger" @click="moveBack">Back</button>
+      <div class="col-1">
+        <button type="button" class="w-100 btn btn-outline-primary" @click="moveToWrite(board.boardNumber)">Modify</button>
+      </div>
+      <div class="col-1">
+        <button type="button" class="w-100 btn btn-outline-danger" @click="removeBoard(board.boardNumber)">remove</button>
+      </div>
+      <div class="col-1 offset-9">
+        <button type="button" class="w-100 btn btn-outline-secondary" @click="moveBack">Back</button>
       </div>
     </div>
   </div>
@@ -161,8 +185,8 @@ const reloadComments = (num) => {
       </div>
     </div>
     <div class="row">
-      <div>
-        <button type="button" class="col-1 btn btn-primary" @click="saveComment(board.boardNumber)">Save</button>
+      <div class="col-1">
+        <button type="button" class="w-100 btn btn-outline-primary" @click="saveComment(board.boardNumber)">Save</button>
       </div>
     </div>
   </div>
