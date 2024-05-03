@@ -11,7 +11,7 @@ const commentStore = {
         "password": "1234",
         "createdDate": "2024-01-01 00:00:00",
         "modifiedDate": "2024-01-01 00:00:00",
-        "active": true,
+        "active": "Y",
       },
       {
         "commentNumber": 2,
@@ -21,7 +21,7 @@ const commentStore = {
         "password": "1234",
         "createdDate": "2024-01-01 00:00:00",
         "modifiedDate": "2024-01-01 00:00:00",
-        "active": true,
+        "active": "Y",
       }
     ],
   },
@@ -32,11 +32,11 @@ const commentStore = {
   },
   getters: {
     getComments: (state) => (number) => {
-      return state.comments.filter(c => c.active && c.boardNumber == number)
+      return state.comments.filter(c => c.active == "Y" && c.boardNumber == number)
     },
     getComment: (state) => (number) => {
       let comment = new Object()
-      let filteredComment = state.comments.filter(c => c.active && c.commentNumber == number)
+      let filteredComment = state.comments.filter(c => c.active == "Y" && c.commentNumber == number)
       if (filteredComment.length > 0) {
         comment = filteredComment[0]
       }
@@ -60,14 +60,23 @@ const commentStore = {
         "password": data.password,
         "createdDate": formatDate(new Date()),
         "modifiedDate": formatDate(new Date()),
-        "active": true,
+        "active": "Y",
       })
       commit('setComments', newComments)
     },
     updateComment({ state, commit }, data) {
       for (let c of state.comments) {
         if (c.commentNumber == data.commentNumber) {
-          c.active = data.active
+          c.active = data.active ? data.active : c.active
+          c.modifiedDate = formatDate(new Date())
+        }
+      }
+      commit('setComments', state.comments)
+    },
+    removeComments({ state, commit }, data) {
+      for (let c of state.comments) {
+        if (c.boardNumber == data.boardNumber) {
+          c.active = "N"
           c.modifiedDate = formatDate(new Date())
         }
       }

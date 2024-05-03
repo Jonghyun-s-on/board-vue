@@ -54,11 +54,13 @@ const moveToWrite = (num) => {
 }
 
 /**
- * move to previous page.
+ * move to board list page.
  *
  */
-const moveBack = () => {
-  router.go(-1)
+const moveToList = () => {
+  router.push({
+    name: 'boardList'
+  })
 }
 
 /**
@@ -112,11 +114,24 @@ const reloadComments = (num) => {
 
 /**
  * remove a selected board.
- * 
- * @param {number} num boardNumber
  */
 const removeBoard = (num) => {
-  console.log(num)
+  let password = prompt("Please enter the password to delete it.")
+  if (password) {
+    if (password == board.value.password) {
+      store.dispatch('removeComments', {
+        boardNumber: num
+      })
+      store.dispatch('updateBoard', {
+        boardNumber: num,
+        active: "N",
+      })
+      alert('deleted successfully.')
+      moveToList()
+    } else {
+      alert('The password does not match.')
+    }
+  }
 }
 </script>
 
@@ -148,13 +163,15 @@ const removeBoard = (num) => {
     </div>
     <div class="row">
       <div class="col-1">
-        <button type="button" class="w-100 btn btn-outline-primary" @click="moveToWrite(board.boardNumber)">Modify</button>
+        <button type="button" class="w-100 btn btn-outline-primary"
+          @click="moveToWrite(board.boardNumber)">Modify</button>
       </div>
       <div class="col-1">
-        <button type="button" class="w-100 btn btn-outline-danger" @click="removeBoard(board.boardNumber)">remove</button>
+        <button type="button" class="w-100 btn btn-outline-danger"
+          @click="removeBoard(board.boardNumber)">remove</button>
       </div>
       <div class="col-1 offset-9">
-        <button type="button" class="w-100 btn btn-outline-secondary" @click="moveBack">Back</button>
+        <button type="button" class="w-100 btn btn-outline-secondary" @click="moveToList">Back</button>
       </div>
     </div>
   </div>
@@ -186,7 +203,8 @@ const removeBoard = (num) => {
     </div>
     <div class="row">
       <div class="col-1">
-        <button type="button" class="w-100 btn btn-outline-primary" @click="saveComment(board.boardNumber)">Save</button>
+        <button type="button" class="w-100 btn btn-outline-primary"
+          @click="saveComment(board.boardNumber)">Save</button>
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@ const boardStore = {
         "password": "1234",
         "createdDate": "2024-01-01 00:00:00",
         "modifiedDate": "2024-01-01 00:00:00",
-        "active": true,
+        "active": "Y",
       }
     ],
   },
@@ -22,11 +22,11 @@ const boardStore = {
   },
   getters: {
     getBoards(state) {
-      return state.boards.filter(b => b.active)
+      return state.boards.filter(b => b.active == "Y")
     },
     getBoard: (state) => (number) => {
       let board = new Object()
-      let filteredBoard = state.boards.filter(b => b.active && b.boardNumber == number)
+      let filteredBoard = state.boards.filter(b => b.active == "Y" && b.boardNumber == number)
       if (filteredBoard.length > 0) {
         board = filteredBoard[0]
       }
@@ -50,17 +50,18 @@ const boardStore = {
         "password": data.password,
         "createdDate": formatDate(new Date()),
         "modifiedDate": formatDate(new Date()),
-        "active": true,
+        "active": "Y",
       })
       commit('setBoards', newBoards)
     },
     updateBoard({ state, commit }, data) {
       for (let b of state.boards) {
         if (b.boardNumber == data.boardNumber) {
-          b.author = data.author
-          b.password = data.password
-          b.title = data.title
-          b.content = data.content
+          b.author = data.author ? data.author : b.author
+          b.password = data.password ? data.password : b.password
+          b.title = data.title ? data.title : b.title
+          b.content = data.content ? data.content : b.content
+          b.active = data.active ? data.active : b.active
           b.modifiedDate = formatDate(new Date())
         }
       }

@@ -54,14 +54,17 @@ const saveBoard = () => {
     content: content.value
   }) // access an action in store
   alert('saved successfully!')
-  moveBack()
+  moveToList()
 }
 
 /**
- * move to previous page.
+ * move to board list page.
+ *
  */
-const moveBack = () => {
-  router.go(-1)
+ const moveToList = () => {
+  router.push({
+    name: 'boardList'
+  })
 }
 
 /**
@@ -97,7 +100,7 @@ const setBoard = () => {
       <button type="button" class="w-100 btn btn-outline-primary" @click="saveBoard">Save</button>
     </div>
     <div class="col-1 offset-10">
-      <button type="button" class="w-100 btn btn-outline-secondary" @click="moveBack">Back</button>
+      <button type="button" class="w-100 btn btn-outline-secondary" @click="moveToList">Back</button>
     </div>
   </div>
 </template>

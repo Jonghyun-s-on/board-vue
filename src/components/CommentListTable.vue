@@ -18,7 +18,7 @@ const removeComment = (num) => {
     if (password == selectedComment.password) {
       store.dispatch('updateComment', {
         commentNumber: selectedComment.commentNumber,
-        active: false,
+        active: "N",
       })
       alert('deleted successfully.')
       emit('reload') // reload comments
