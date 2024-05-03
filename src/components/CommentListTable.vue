@@ -1,8 +1,16 @@
 <script setup>
 import { useStore } from 'vuex'
+// variables
 const store = useStore()
 const props = defineProps(['commentList'])
 const emit = defineEmits(["reload"])
+
+// methods
+/**
+ * remove a selected comment. (update comments.active)
+ * 
+ * @param {number} num boardNumber
+ */
 const removeComment = (num) => {
   let password = prompt("Please enter the password to delete it.")
   if (password) {
@@ -13,7 +21,7 @@ const removeComment = (num) => {
         active: false,
       })
       alert('deleted successfully.')
-      emit('reload')
+      emit('reload') // reload comments
     } else {
       alert('The password does not match.')
     }

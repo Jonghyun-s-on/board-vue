@@ -1,5 +1,10 @@
+/**
+ * fetch a json file. (not used)
+ *
+ * @param {string} filePath
+ * @returns {array} json array data from the file.
+ */
 const fetchJsonFile = async (filePath) => {
-  // const response = await fetch('/data/boards.json')
   let jsonArray = new Array()
   try {
     const response = await fetch(filePath)

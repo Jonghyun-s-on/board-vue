@@ -4,7 +4,7 @@ const boardStore = {
   state: {
     boards: [
       {
-        "boardNumber": "1",
+        "boardNumber": 1,
         "title": "첫 번째 게시글입니다.",
         "content": "안녕하세요. 이 글은 첫 번째 게시글입니다.",
         "author": "손종현",
@@ -39,7 +39,7 @@ const boardStore = {
       let boardNumber = 1
       if (state.boards.length > 0) {
         let latestBoard = state.boards[state.boards.length - 1]
-        boardNumber = Number(latestBoard.boardNumber) + 1
+        boardNumber = latestBoard.boardNumber + 1
         newBoards = state.boards
       }
       newBoards.push({

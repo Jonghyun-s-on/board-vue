@@ -1,20 +1,30 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-// import { fetchJsonFile } from '@/util/JsonFileUtil'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import BoardListTable from '../components/BoardListTable.vue'
+// mounted
 onMounted(() => {
   searchBoardList()
 })
+
+// variables
 const router = useRouter()
 const store = useStore()
+const titleKeyword = ref(new String()) // input value
 const boardList = ref(new Array())
-const titleKeyword = ref(new String())
-const searchBoardList = async () => {
-  // boardList.value = await fetchJsonFile('/data/boards.json')
+
+// methods
+/**
+ * search boards.
+ */
+const searchBoardList = () => {
   boardList.value = store.getters.getBoards.filter(b => b.title.includes(titleKeyword.value))
 }
+
+/**
+ * move to board write page.
+ */
 const moveToWrite = () => {
   router.push({
     name: 'boardWrite'

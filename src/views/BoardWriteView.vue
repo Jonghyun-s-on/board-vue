@@ -2,7 +2,7 @@
 import { ref, getCurrentInstance, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-// on mounted
+// mounted
 onMounted(() => {
   if (props.number) {
     setBoard() // when modification mode
@@ -10,16 +10,19 @@ onMounted(() => {
 })
 
 // variables
-const { proxy } = getCurrentInstance()
 const props = defineProps(['number'])
+const { proxy } = getCurrentInstance()
 const router = useRouter()
 const store = useStore()
-const author = ref(new String())
-const password = ref(new String())
-const title = ref(new String())
-const content = ref(new String())
+const author = ref(new String()) // board's author
+const password = ref(new String()) // board's password
+const title = ref(new String()) // board's title
+const content = ref(new String()) // board's content
 
 // methods
+/**
+ * save a board.
+ */
 const saveBoard = () => {
   if (author.value == '') {
     alert('author empty!')
@@ -49,18 +52,26 @@ const saveBoard = () => {
     password: password.value,
     title: title.value,
     content: content.value
-  }) // access an action
+  }) // access an action in store
   alert('saved successfully!')
   moveBack()
 }
+
+/**
+ * move to previous page.
+ */
+const moveBack = () => {
+  router.go(-1)
+}
+
+/**
+ * set a seleted board on inputs
+ */
 const setBoard = () => {
   let board = store.getters.getBoard(props.number)
   author.value = board.author
   title.value = board.title
   content.value = board.content
-}
-const moveBack = () => {
-  router.go(-1)
 }
 </script>
 

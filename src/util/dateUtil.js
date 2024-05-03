@@ -1,3 +1,9 @@
+/**
+ * format date.
+ * 
+ * @param {date} date 
+ * @returns {string} formatted date. (yyyy-MM-dd HH:mm:ss)
+ */
 const formatDate = (date) => {
     let month = date.getMonth() + 1
     let day = date.getDate()

@@ -3,40 +3,49 @@ import { ref, onMounted, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import CommentListTable from '@/components/CommentListTable.vue'
-// import { fetchJsonFile } from '@/util/JsonFileUtil'
+// mounted
 onMounted(() => {
   searchBoard(route.query.number)
 })
+
+// variables
 const { proxy } = getCurrentInstance()
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
-const board = ref(new Object())
-const commentList = ref(new Array())
-const author = ref(new String())
-const comment = ref(new String())
-const password = ref(new String())
-// let originBoard = new Object()
-// const props = defineProps(['number']) // be active when 'props: true' on router/index.js
-// const searchBoard = async () => {
-//   const boardList = await fetchJsonFile('/data/boards.json')
-//   boardList.forEach(b => {
-//     if (b.number == route.query.number) {
-//       originBoard = Object.assign(new Object(), b) // deep copy
-//       board.value = b
-//     }
-//   })
-// }
+const board = ref(new Object()) // a selected board
+const commentList = ref(new Array()) // selected board's comments
+const author = ref(new String()) // comment's author
+const password = ref(new String()) // comment's password
+const comment = ref(new String()) // comment's comment
+
+// methods
+/**
+ * search a selected board.
+ * 
+ * @param {number} num boardNumber
+ */
 const searchBoard = (num) => {
   let selectedBoard = store.getters.getBoard(num)
   board.value = selectedBoard
   commentList.value = searchComments(num)
 }
 
+/**
+ * search selected board's comments.
+ * 
+ * @param {number} num boardNumber
+ * @returns {array} comments
+ */
 const searchComments = (num) => {
   return store.getters.getComments(num)
 }
 
+/**
+ * move to board write page with params to update the board.
+ * 
+ * @param {number} num boardNumber
+ */
 const moveToWrite = (num) => {
   router.push({
     name: 'boardWrite',
@@ -44,10 +53,19 @@ const moveToWrite = (num) => {
   })
 }
 
+/**
+ * move to previous page.
+ *
+ */
 const moveBack = () => {
   router.go(-1)
 }
 
+/**
+ * save a comment.
+ * 
+ * @param {number} num boardNumber
+ */
 const saveComment = (num) => {
   if (author.value == '') {
     alert('author empty!')
@@ -72,6 +90,12 @@ const saveComment = (num) => {
   })
   commentList.value = searchComments(num)
 }
+
+/**
+ * reload comments.
+ * 
+ * @param {number} num boardNumber
+ */
 const reloadComments = (num) => {
   commentList.value = searchComments(num)
 }

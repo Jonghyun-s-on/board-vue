@@ -4,8 +4,8 @@ const commentStore = {
   state: {
     comments: [
       {
-        "commentNumber": "1",
-        "boardNumber": "1",
+        "commentNumber": 1,
+        "boardNumber": 1,
         "comment": "안녕하세요. 이 글은 첫 번째 게시글의 첫 번째 댓글입니다. 안녕하세요. 이 글은 첫 번째 게시글의 첫 번째 댓글입니다. 안녕하세요. 이 글은 첫 번째 게시글의 첫 번째 댓글입니다.",
         "author": "홍길동",
         "password": "1234",
@@ -14,8 +14,8 @@ const commentStore = {
         "active": true,
       },
       {
-        "commentNumber": "2",
-        "boardNumber": "1",
+        "commentNumber": 2,
+        "boardNumber": 1,
         "comment": "안녕하세요. 이 글은 첫 번째 게시글의 두 번째 댓글입니다.",
         "author": "바보",
         "password": "1234",
@@ -49,7 +49,7 @@ const commentStore = {
       let commentNumber = 1
       if (state.comments.length > 0) {
         let latestComment = state.comments[state.comments.length - 1]
-        commentNumber = Number(latestComment.commentNumber) + 1
+        commentNumber = latestComment.commentNumber + 1
         newComments = state.comments
       }
       newComments.push({

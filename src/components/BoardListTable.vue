@@ -1,8 +1,16 @@
 <script setup>
 // import { defineProps } from 'vue'
 import { useRouter } from 'vue-router'
+// variables
 const router = useRouter()
 const props = defineProps(['boardList'])
+
+// methods
+/**
+ * move to board view page with query.
+ * 
+ * @param {number} num boardNumber
+ */
 const moveToView = (num) => {
   router.push({
     name: 'boardView',
