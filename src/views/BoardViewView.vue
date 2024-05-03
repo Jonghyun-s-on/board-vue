@@ -72,6 +72,9 @@ const saveComment = (num) => {
   })
   commentList.value = searchComments(num)
 }
+const reloadComments = (num) => {
+  commentList.value = searchComments(num)
+}
 </script>
 
 <template>
@@ -111,7 +114,7 @@ const saveComment = (num) => {
     <p class="h5">Comments</p>
   </div>
   <div class="row mb-5">
-    <CommentListTable :commentList="commentList" />
+    <CommentListTable :commentList="commentList" @reload="reloadComments(board.boardNumber)" />
   </div>
   <div class="row">
     <div class="col-2">

@@ -34,6 +34,14 @@ const commentStore = {
     getComments: (state) => (number) => {
       return state.comments.filter(c => c.active && c.boardNumber == number)
     },
+    getComment: (state) => (number) => {
+      let comment = new Object()
+      let filteredComment = state.comments.filter(c => c.active && c.commentNumber == number)
+      if (filteredComment.length > 0) {
+        comment = filteredComment[0]
+      }
+      return comment
+    }
   },
   actions: {
     insertComment({ state, commit }, data) {
@@ -56,8 +64,14 @@ const commentStore = {
       })
       commit('setComments', newComments)
     },
-    updateComment() {
-
+    updateComment({ state, commit }, data) {
+      for (let c of state.comments) {
+        if (c.commentNumber == data.commentNumber) {
+          c.active = data.active
+          c.modifiedDate = formatDate(new Date())
+        }
+      }
+      commit('setComments', state.comments)
     }
   }
 }
