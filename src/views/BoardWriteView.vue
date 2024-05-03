@@ -59,7 +59,6 @@ const saveBoard = () => {
 
 /**
  * move to board list page.
- *
  */
  const moveToList = () => {
   router.push({

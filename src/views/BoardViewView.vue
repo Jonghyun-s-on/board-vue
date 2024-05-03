@@ -55,7 +55,6 @@ const moveToWrite = (num) => {
 
 /**
  * move to board list page.
- *
  */
 const moveToList = () => {
   router.push({
