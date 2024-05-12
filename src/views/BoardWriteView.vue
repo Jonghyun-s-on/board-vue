@@ -95,10 +95,10 @@ const setBoard = () => {
     <textarea class="form-control" rows="3" v-model="content" ref="contentRef"></textarea>
   </div>
   <div class="row">
-    <div class="col-1">
+    <div class="col-3 col-sm-1">
       <button type="button" class="w-100 btn btn-outline-primary" @click="saveBoard">Save</button>
     </div>
-    <div class="col-1 offset-10">
+    <div class="col-3 offset-6 col-sm-1 offset-sm-10">
       <button type="button" class="w-100 btn btn-outline-secondary" @click="moveToList">Back</button>
     </div>
   </div>
